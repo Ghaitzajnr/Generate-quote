@@ -2,7 +2,11 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 
 const MainLayout = ({ children }) => {
-  return <View style={styles.container}>{children}</View>;
+  return (
+    <View style={styles.container}>
+      {children}
+    </View>
+  );
 };
 
 const styles = StyleSheet.create({
@@ -10,6 +14,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     backgroundColor: '#ffe4b3',
+    width: '100%' // Add web-specific width
   },
 });
 
