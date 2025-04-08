@@ -13,7 +13,7 @@ Aplikasi sederhana untuk menampilkan dan menambahkan kutipan motivasi (quotes)
 ### 1. Pastikan sudah terinstall:
 
 - [Node.js](https://nodejs.org/)
-- [Expo CLI](https://docs.expo.dev/) → install dengan perintah:
+- [Expo CLI](https://docs.expo.dev/) → install dengan perintah (terminal):
   ```bash
   npm install -g expo-cli
   ```
