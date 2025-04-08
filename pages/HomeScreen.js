@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { quotes as initialQuotes } from '../data/quotes';
+import { quotes as initialQuotes } from '../data/quote';
 import MainLayout from '../components/templates/MainLayout';
 import QuoteSection from '../components/organisms/QuoteSection';
 
