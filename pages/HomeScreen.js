@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import { quotes as initialQuotes } from '../data/quote';
+import { generateRandomQuote, combineWithTemplate } from '../utils/quoteGenerator';
 import MainLayout from '../components/templates/MainLayout';
 import QuoteSection from '../components/organisms/QuoteSection';
+
+const quoteTemplates = [
+  "Life is like {word}, full of surprises",
+  "The secret of {word} is to keep moving",
+  "{word} is the key to happiness",
+  "Without {word}, life would be boring"
+];
 
 const getRandomQuote = (quotesArray) => {
   const index = Math.floor(Math.random() * quotesArray.length);
@@ -11,9 +19,33 @@ const getRandomQuote = (quotesArray) => {
 const HomeScreen = () => {
   const [quotes, setQuotes] = useState(initialQuotes);
   const [quote, setQuote] = useState(getRandomQuote(quotes));
+  const [userWords, setUserWords] = useState([]);
+  const [currentWord, setCurrentWord] = useState('');
 
   const handleGenerate = () => {
-    setQuote(getRandomQuote(quotes));
+    if (userWords.length > 0) {
+      // 50% chance to use random generation or template
+      const useTemplate = Math.random() > 0.5;
+      const newQuote = useTemplate 
+        ? combineWithTemplate(userWords, quoteTemplates)
+        : generateRandomQuote(userWords);
+      setQuote(newQuote);
+    } else {
+      setQuote(getRandomQuote(quotes));
+    }
+  };
+
+  const handleAddWord = () => {
+    if (currentWord.trim()) {
+      setUserWords([...userWords, currentWord.trim()]);
+      setCurrentWord('');
+    }
+  };
+
+  const handleDeleteWord = (index) => {
+    const updatedWords = [...userWords];
+    updatedWords.splice(index, 1);
+    setUserWords(updatedWords);
   };
 
   const handleAddQuote = (newQuote) => {
@@ -24,7 +56,16 @@ const HomeScreen = () => {
 
   return (
     <MainLayout>
-      <QuoteSection quote={quote} onGenerate={handleGenerate} onAddQuote={handleAddQuote} />
+      <QuoteSection 
+        quote={quote} 
+        onGenerate={handleGenerate} 
+        onAddQuote={handleAddQuote}
+        userWords={userWords}
+        currentWord={currentWord}
+        onWordChange={setCurrentWord}
+        onAddWord={handleAddWord}
+        onDeleteWord={handleDeleteWord}
+      />
     </MainLayout>
   );
 };
