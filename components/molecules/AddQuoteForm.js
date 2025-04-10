@@ -4,16 +4,24 @@ import ButtonAtom from '../atoms/ButtonAtom';
 import Spacer from '../atoms/Spacer';
 
 const AddQuoteForm = ({ newQuote, setNewQuote, onAddQuote }) => {
+  const handleSubmit = () => {
+    onAddQuote(newQuote);
+    setNewQuote(''); // Reset input setelah submit
+  };
+
   return (
     <>
       <InputAtom
-        placeholder="Add your own quote"
+        placeholder="Masukkan kata kunci (opsional)"
         value={newQuote}
         onChangeText={setNewQuote}
-        onSubmitEditing={onAddQuote}
+        onSubmitEditing={handleSubmit}
       />
       <Spacer height={16} />
-      <ButtonAtom title="Add Quote" onPress={onAddQuote} />
+      <ButtonAtom 
+        title="Generate Quote" 
+        onPress={handleSubmit} 
+      />
     </>
   );
 };

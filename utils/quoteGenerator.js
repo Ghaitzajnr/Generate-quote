@@ -32,3 +32,19 @@ export const getRandomPredefinedQuote = () => {
   const quotes = isIndonesian ? indonesianQuotes : englishQuotes;
   return quotes[Math.floor(Math.random() * quotes.length)];
 };
+
+export const generateQuote = (quotes, keyword = '') => {
+  // Jika ada keyword, cari quote yang sesuai
+  if (keyword && keyword.trim()) {
+    const filteredQuotes = quotes.filter(quote => 
+      quote.text.toLowerCase().includes(keyword.toLowerCase()) || 
+      quote.author.toLowerCase().includes(keyword.toLowerCase())
+    );
+    return filteredQuotes.length > 0 
+      ? filteredQuotes[Math.floor(Math.random() * filteredQuotes.length)]
+      : quotes[Math.floor(Math.random() * quotes.length)]; // Fallback ke random quote
+  }
+  
+  // Jika tidak ada keyword, ambil random quote
+  return quotes[Math.floor(Math.random() * quotes.length)];
+};

@@ -22,17 +22,9 @@ const HomeScreen = () => {
   const [userWords, setUserWords] = useState([]);
   const [currentWord, setCurrentWord] = useState('');
 
-  const handleGenerate = () => {
-    if (userWords.length > 0) {
-      // 50% chance to use random generation or template
-      const useTemplate = Math.random() > 0.5;
-      const newQuote = useTemplate 
-        ? combineWithTemplate(userWords, quoteTemplates)
-        : generateRandomQuote(userWords);
-      setQuote(newQuote);
-    } else {
-      setQuote(getRandomQuote(quotes));
-    }
+  const handleGenerateQuote = (keyword) => {
+    const generatedQuote = generateQuote(quotes, keyword);
+    setCurrentQuote(generatedQuote);
   };
 
   const handleAddWord = () => {
